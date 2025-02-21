@@ -1,3 +1,46 @@
+let humanScore = 0;
+let computerScore = 0;
+
+
+/*
+If human choice same as computerChoice, don't change the score
+If human choice is Rock
+    If computer choice is paper then increment computerScore
+    If computer choice is scissors then increment humanScore
+If human choice is Paper
+    If computer choice is scissors then increment computerScore
+    If computer choice is rock then increment humanScore
+If human choice is Scissors
+    If computer choice is rock then increment computerScore
+    If computer choice is paper then increment humanScore
+*/
+function playRound(humanChoice, computerChoice) {
+    console.log(`Human Choice: ${humanChoice}, Computer Choice: ${computerChoice}`);
+    if(humanChoice === "Rock") {
+        if(computerChoice === "Paper") {
+            computerScore++;
+        } else if(computerChoice === "Scissors") {
+            humanScore++;
+        }
+    } else if(humanChoice === "Paper") {
+        if(computerChoice === "Scissors") {
+            computerScore++;
+        } else if(computerChoice === "Rock") {
+            humanScore++;
+        }
+    } else if(humanChoice === "Scissors") {
+        if(computerChoice === "Rock") {
+            computerScore++;
+        } else if(computerChoice === "Paper") {
+            humanScore++;
+        }
+    }
+}
+
+const humanChoice = getHumanChoice();
+const computerChoice = getComputerChoice();
+playRound(humanChoice, computerChoice);
+console.log(`Human Score: ${humanScore}, Computer Score: ${computerScore}`);
 /*
 Get Random num from 1 to 3
 If num is 1 return rock

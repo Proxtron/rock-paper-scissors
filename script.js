@@ -32,15 +32,29 @@ function attachEventListeners() {
                 humanScoreRef.innerText = humanScore
                 computerScoreRef.innerText = computerScore
             
-                const liElement = document.createElement("li");
-                liElement.textContent = `Human: ${humanChoice}, Computer: ${computerChoice}, Outcome: ${roundWinner}`;
-                previousRoundsRef.appendChild(liElement);
+                const choiceToIconMap = new Map();
+                choiceToIconMap.set("Rock", "img/rock.png")
+                choiceToIconMap.set("Paper", "img/paper.png")
+                choiceToIconMap.set("Scissors", "img/scissors.png")
 
-                if(computerScore === 5) {
-                    endGame("Computer");
-                } else if(humanScore === 5) {
-                    endGame("Human");
-                }
+                const winnerToDisplayMap = new Map();
+                winnerToDisplayMap.set("Tie", "Tie Round")
+                winnerToDisplayMap.set("Human", "You win")
+                winnerToDisplayMap.set("Computer", "Computer wins")
+
+                const previousRoundsRef = document.getElementById("previous-rounds");
+                previousRoundsRef.innerHTML = `
+                <div class="previous-round-item">
+                    <div class="left-side">
+                        <img class="mini-rps-img" width=auto height=20 src="${choiceToIconMap.get(humanChoice)}">
+                        <p>vs</p>
+                        <img class="mini-rps-img" width=auto height=20 src="${choiceToIconMap.get(computerChoice)}">
+                    </div>
+                    <div class="right-side">
+                        <p>${winnerToDisplayMap.get(roundWinner)}</p>
+                    </div>
+                </div>
+                ` + previousRoundsRef.innerHTML;
             }
         })
     });

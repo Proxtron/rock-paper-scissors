@@ -9,36 +9,38 @@ let computerScore = 0;
 playGame();
 
 function playGame() {
-    humanScoreRef.innerText = `Human Score: ${humanScore}`;
-    computerScoreRef.innerText = `Computer Score: ${computerScore}`;
+    humanScoreRef.innerText = humanScore
+    computerScoreRef.innerText = computerScore
     attachEventListeners();
 }
 
 function attachEventListeners() {
-    const buttonRefs = document.querySelectorAll("button");
+    const buttonRefs = document.querySelectorAll(".btn");
     buttonRefs.forEach((button) => {
         button.addEventListener("click", (event) => {
-            const computerChoice = getComputerChoice();
-            const humanChoice = getHumanChoice(event.target.id)
+            if(event.currentTarget.id === "rock-btn" || event.currentTarget.id === "paper-btn" || event.currentTarget.id === "scissors-btn") {     
+                const computerChoice = getComputerChoice();
+                const humanChoice = getHumanChoice(event.currentTarget.id)
 
-            const roundWinner = playRound(humanChoice, computerChoice);
-            if(roundWinner === "Computer") {
-                computerScore++;
-            } else if(roundWinner === "Human") {
-                humanScore++;
-            }
+                const roundWinner = playRound(humanChoice, computerChoice);
+                if(roundWinner === "Computer") {
+                    computerScore++;
+                } else if(roundWinner === "Human") {
+                    humanScore++;
+                }
 
-            humanScoreRef.innerText = `Human Score: ${humanScore}`;
-            computerScoreRef.innerText = `Computer Score: ${computerScore}`;
-        
-            const liElement = document.createElement("li");
-            liElement.textContent = `Human: ${humanChoice}, Computer: ${computerChoice}, Outcome: ${roundWinner}`;
-            previousRoundsRef.appendChild(liElement);
+                humanScoreRef.innerText = humanScore
+                computerScoreRef.innerText = computerScore
+            
+                const liElement = document.createElement("li");
+                liElement.textContent = `Human: ${humanChoice}, Computer: ${computerChoice}, Outcome: ${roundWinner}`;
+                previousRoundsRef.appendChild(liElement);
 
-            if(computerScore === 5) {
-                endGame("Computer");
-            } else if(humanScore === 5) {
-                endGame("Human");
+                if(computerScore === 5) {
+                    endGame("Computer");
+                } else if(humanScore === 5) {
+                    endGame("Human");
+                }
             }
         })
     });

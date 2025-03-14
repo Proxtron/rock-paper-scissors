@@ -55,6 +55,12 @@ function attachEventListeners() {
                     </div>
                 </div>
                 ` + previousRoundsRef.innerHTML;
+
+                if(humanScore == 5) {
+                    endGame("Human")
+                } else if(computerScore == 5) {
+                    endGame("Computer")
+                }
             }
         })
     });
@@ -62,14 +68,21 @@ function attachEventListeners() {
 
 //Takes the winner of the game and ends the game
 function endGame(gameWinner) {
-    const buttonRefs = document.querySelectorAll("button");
-    buttonRefs.forEach((button) => {
-        button.setAttribute("disabled", "");
-    })
+    const buttonRefs = document.getElementById("btns-container");
+    buttonRefs.innerHTML = "";
 
+    const endMessageDiv = document.createElement("div");
+    endMessageDiv.classList.add("end-message-div")
+    if(gameWinner == "Human") {
+        endMessageDiv.classList.add("green");
+    }
+    else if (gameWinner == "Computer") {
+        endMessageDiv.classList.add("red");
+    }
     const gameOverMessage = document.createElement("h2");
     gameOverMessage.innerText = `Game Over! Winner: ${gameWinner}`;
-    gameScoreRef.appendChild(gameOverMessage);
+    endMessageDiv.appendChild(gameOverMessage)
+    buttonRefs.appendChild(endMessageDiv);
 }
 //Takes a human choice and a computer choice as arguments
 //Returns:
